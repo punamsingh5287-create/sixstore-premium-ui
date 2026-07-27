@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { ProductLogo, StockBadge } from "@/components/ProductCard";
 import { EmptyState, SkeletonBlock, useScreenLoad } from "@/components/states";
+import { ReviewsCarousel } from "@/components/Reviews";
 import { cartActions, inr } from "@/lib/cart-store";
 import { checkoutActions } from "@/lib/checkout-store";
 import { getProduct, getStock } from "@/lib/mock-data";
@@ -225,6 +226,9 @@ function ProductScreen() {
               <li>3. Access details land in Orders and in your chat.</li>
             </ol>
           </section>
+          <div className="reveal" style={{ animationDelay: "210ms" }}>
+            <ReviewsCarousel product={product} />
+          </div>
         </div>
       )}
     </AppShell>
