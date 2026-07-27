@@ -36,7 +36,7 @@ function OrdersScreen() {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`min-h-10 shrink-0 rounded-full border px-4 text-sm capitalize active:scale-95 ${
+            className={`min-h-10 shrink-0 rounded-full border px-4 text-sm capitalize press ${
               filter === f
                 ? "border-primary bg-primary/10 text-foreground"
                 : "border-border text-muted-foreground"

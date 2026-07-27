@@ -144,3 +144,75 @@
     display: none;
   }
 }
+
+@keyframes sx-shimmer {
+  0% {
+    background-position: -160% 0;
+  }
+  100% {
+    background-position: 260% 0;
+  }
+}
+
+@keyframes sx-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sx-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility skeleton {
+  background-color: var(--secondary);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in oklab, var(--foreground) 8%, transparent) 45%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  animation: sx-shimmer 1.5s ease-in-out infinite;
+}
+
+@utility page-in {
+  animation: sx-fade-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility pop-in {
+  animation: sx-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility press {
+  transition:
+    transform 0.14s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
+  &:active {
+    transform: scale(0.965);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

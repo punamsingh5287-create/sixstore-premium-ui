@@ -41,7 +41,7 @@ function CartScreen() {
             </div>
             <button
               onClick={() => toast.success("Order placed — this is a demo checkout")}
-              className="min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground active:scale-95"
+              className="min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground press"
             >
               Place order
             </button>
@@ -82,7 +82,7 @@ function CartScreen() {
                     <button
                       aria-label="Decrease quantity"
                       onClick={() => cartActions.setQty(l.productId, l.planId, l.qty - 1)}
-                      className="grid size-9 place-items-center rounded-full bg-secondary text-foreground active:scale-95"
+                      className="grid size-9 place-items-center rounded-full bg-secondary text-foreground press"
                     >
                       <Minus className="size-4" />
                     </button>
@@ -92,14 +92,14 @@ function CartScreen() {
                     <button
                       aria-label="Increase quantity"
                       onClick={() => cartActions.setQty(l.productId, l.planId, l.qty + 1)}
-                      className="grid size-9 place-items-center rounded-full bg-secondary text-foreground active:scale-95"
+                      className="grid size-9 place-items-center rounded-full bg-secondary text-foreground press"
                     >
                       <Plus className="size-4" />
                     </button>
                     <button
                       aria-label={`Remove ${l.product.name}`}
                       onClick={() => cartActions.remove(l.productId, l.planId)}
-                      className="ml-auto grid size-9 place-items-center rounded-full bg-secondary text-muted-foreground active:scale-95"
+                      className="ml-auto grid size-9 place-items-center rounded-full bg-secondary text-muted-foreground press"
                     >
                       <Trash2 className="size-4" />
                     </button>
@@ -136,7 +136,7 @@ function CartScreen() {
                 <button
                   key={m.id}
                   onClick={() => setMethod(m.id)}
-                  className={`min-h-11 rounded-xl border text-sm font-medium active:scale-95 ${
+                  className={`min-h-11 rounded-xl border text-sm font-medium press ${
                     method === m.id
                       ? "border-primary bg-primary/10 text-foreground"
                       : "border-border text-muted-foreground"

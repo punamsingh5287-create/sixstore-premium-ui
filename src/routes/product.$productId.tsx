@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Check, ShieldCheck, Star, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
-import { ProductLogo } from "@/components/ProductCard";
+import { ProductLogo, StockBadge } from "@/components/ProductCard";
 import { EmptyState, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { cartActions, inr } from "@/lib/cart-store";
-import { getProduct } from "@/lib/mock-data";
+import { getProduct, getStock } from "@/lib/mock-data";
 export const Route = createFileRoute("/product/$productId")({
   head: ({ params }) => {
     const product = getProduct(params.productId);
@@ -68,7 +68,7 @@ function ProductScreen() {
                 cartActions.add(product.id, plan.id);
                 toast.success(`${product.name} added to cart`);
               }}
-              className="min-h-12 flex-1 rounded-full border border-border text-sm font-semibold text-foreground active:scale-95"
+              className="min-h-12 flex-1 rounded-full border border-border text-sm font-semibold text-foreground press"
             >
               Add to cart
             </button>
@@ -77,7 +77,7 @@ function ProductScreen() {
                 cartActions.add(product.id, plan.id);
                 navigate({ to: "/cart" });
               }}
-              className="min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground active:scale-95"
+              className="min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground press"
             >
               Buy now
             </button>
@@ -105,6 +105,12 @@ function ProductScreen() {
                 </span>
                 <span>· {product.sold.toLocaleString("en-IN")} sold</span>
               </div>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <StockBadge stock={getStock(product.id)} />
+                <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">
+                  {off}% off
+                </span>
+              </div>
             </div>
           </section>
           <section className="flex flex-col gap-3">
@@ -116,7 +122,7 @@ function ProductScreen() {
                   <button
                     key={p.id}
                     onClick={() => setPlanId(p.id)}
-                    className={`flex min-h-[60px] items-center justify-between gap-3 rounded-2xl border px-4 text-left active:scale-[0.99] ${
+                    className={`flex min-h-[60px] items-center justify-between gap-3 rounded-2xl border px-4 text-left press ${
                       selected ? "border-primary bg-primary/10" : "border-border bg-card"
                     }`}
                   >

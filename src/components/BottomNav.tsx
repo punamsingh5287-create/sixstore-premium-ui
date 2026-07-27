@@ -16,10 +16,15 @@ export function BottomNav() {
             <Link
               to={to}
               activeOptions={{ exact }}
-              className="flex min-h-[64px] flex-col items-center justify-center gap-1 text-muted-foreground transition-colors data-[status=active]:text-primary"
+              className="press group flex min-h-[64px] flex-col items-center justify-center gap-1 text-muted-foreground data-[status=active]:text-primary"
             >
-              <Icon className="size-[22px]" />
-              <span className="text-[11px] font-medium">{label}</span>
+              <span className="relative grid h-8 w-14 place-items-center rounded-full transition-colors group-data-[status=active]:bg-primary/15">
+                <span className="absolute -top-[13px] h-[3px] w-0 rounded-full bg-primary transition-all duration-200 group-data-[status=active]:w-8" />
+                <Icon className="size-[21px] transition-transform duration-200 group-data-[status=active]:-translate-y-px group-data-[status=active]:scale-110" />
+              </span>
+              <span className="text-[11px] font-medium group-data-[status=active]:font-semibold">
+                {label}
+              </span>
             </Link>
           </li>
         ))}

@@ -51,7 +51,7 @@ function WalletScreen() {
                 <button
                   key={a}
                   onClick={() => setSelected(a)}
-                  className={`min-h-11 rounded-xl border text-sm font-semibold active:scale-95 ${
+                  className={`min-h-11 rounded-xl border text-sm font-semibold press ${
                     selected === a
                       ? "border-primary bg-primary/10 text-foreground"
                       : "border-border text-muted-foreground"
@@ -63,7 +63,7 @@ function WalletScreen() {
             </div>
             <button
               onClick={() => toast.success(`Demo top-up of ${inr(selected)} — no real payment taken`)}
-              className="min-h-12 rounded-full bg-primary text-sm font-semibold text-primary-foreground active:scale-95"
+              className="min-h-12 rounded-full bg-primary text-sm font-semibold text-primary-foreground press"
             >
               Top up {inr(selected)}
             </button>

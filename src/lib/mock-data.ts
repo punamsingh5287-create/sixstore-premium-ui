@@ -29,21 +29,21 @@ export const categories: {
   { id: "ai-image", name: "AI Design", kind: "ai", blurb: "Image & video gen" },
   { id: "ai-code", name: "AI Coding", kind: "ai", blurb: "Dev copilots" },
 ];
-const plans = (base: number): Plan[] => [
-  { id: "1m", label: "1 Month", months: 1, price: base, mrp: Math.round(base * 1.6) },
+const plans = (base: number, off = 1.6): Plan[] => [
+  { id: "1m", label: "1 Month", months: 1, price: base, mrp: Math.round(base * off) },
   {
     id: "3m",
     label: "3 Months",
     months: 3,
     price: Math.round(base * 2.7),
-    mrp: Math.round(base * 4.5),
+    mrp: Math.round(base * 2.7 * off * 1.05),
   },
   {
     id: "12m",
     label: "12 Months",
     months: 12,
     price: Math.round(base * 9),
-    mrp: Math.round(base * 17),
+    mrp: Math.round(base * 9 * off * 1.12),
   },
 ];
 export const products: Product[] = [
@@ -58,7 +58,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 2140,
     sold: 9820,
-    plans: plans(199),
+    plans: plans(199, 1.85),
     badge: "Bestseller",
     highlights: ["Instant delivery", "4K + HDR", "Works on TV & mobile", "30-day warranty"],
     description:
@@ -75,7 +75,7 @@ export const products: Product[] = [
     rating: 4.6,
     reviews: 1180,
     sold: 5310,
-    plans: plans(99),
+    plans: plans(99, 1.45),
     highlights: ["Instant delivery", "Full HD streaming", "Mobile + TV", "Replacement warranty"],
     description:
       "Prime Video access with the full catalogue of originals, plus delivery perks on the linked storefront.",
@@ -91,7 +91,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviews: 3320,
     sold: 14200,
-    plans: plans(129),
+    plans: plans(129, 1.72),
     badge: "Top rated",
     highlights: ["Upgrade on your own ID", "Offline downloads", "No ads", "Lossless tier"],
     description:
@@ -108,7 +108,7 @@ export const products: Product[] = [
     rating: 4.5,
     reviews: 870,
     sold: 4020,
-    plans: plans(149),
+    plans: plans(149, 2.05),
     highlights: ["Live match streams", "Multi-cam angles", "2 screens", "Season pass option"],
     description: "Season-long access to live sport with multi-language commentary and multi-cam angles.",
   },
@@ -123,7 +123,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviews: 2760,
     sold: 11800,
-    plans: plans(1499),
+    plans: plans(1499, 1.35),
     badge: "Bestseller",
     highlights: ["Priority access", "Advanced data analysis", "Voice mode", "Larger context"],
     description:
@@ -140,7 +140,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 1440,
     sold: 6100,
-    plans: plans(1699),
+    plans: plans(1699, 1.55),
     highlights: ["200K context", "Projects & artifacts", "File analysis", "5x usage limits"],
     description: "A Pro seat tuned for long-document work, research and writing with generous usage limits.",
   },
@@ -155,7 +155,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 980,
     sold: 3560,
-    plans: plans(1299),
+    plans: plans(1299, 1.28),
     highlights: ["15 fast hours", "Unlimited relax mode", "Commercial usage", "Stealth add-on"],
     description: "An image generation seat with fast GPU hours and commercial usage rights for client work.",
   },
@@ -170,12 +170,23 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 720,
     sold: 2480,
-    plans: plans(1599),
+    plans: plans(1599, 1.62),
     highlights: ["Unlimited completions", "Agent mode", "Repo-wide context", "Fast requests"],
     description: "A Pro seat for the agentic code editor with repo-wide context and fast premium requests.",
   },
 ];
 export const getProduct = (id: string) => products.find((p) => p.id === id);
+export const stockById: Record<string, number> = {
+  "netflix-premium": 42,
+  "prime-video": 7,
+  "spotify-premium": 68,
+  "hotstar-sports": 3,
+  "chatgpt-plus": 15,
+  "claude-pro": 9,
+  midjourney: 0,
+  "cursor-pro": 24,
+};
+export const getStock = (id: string) => stockById[id] ?? 0;
 export type Order = {
   id: string;
   productId: string;
