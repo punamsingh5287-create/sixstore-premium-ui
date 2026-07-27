@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, ShieldCheck, Wallet as WalletIcon, Zap } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ProductCard, ProductRow } from "@/components/ProductCard";
-import { SearchBar } from "@/components/SearchBar";
+import { SearchBarButton } from "@/components/SearchBar";
 import { CardSkeletonGrid, RowSkeletonList, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { inr } from "@/lib/cart-store";
 import { categories, products, user, wallet } from "@/lib/mock-data";
@@ -33,16 +33,7 @@ function HomeScreen() {
     <AppShell
       title={`Hi, ${user.name.split(" ")[0]}`}
       subtitle="Premium access, member prices"
-      search={
-        <button
-          type="button"
-          onClick={() => navigate({ to: "/categories" })}
-          className="press w-full text-left"
-          aria-label="Search the store"
-        >
-          <SearchBar readOnlyHint />
-        </button>
-      }
+      search={<SearchBarButton onClick={() => navigate({ to: "/categories" })} />}
     >
       {loading ? (
         <div className="flex flex-col gap-5">
