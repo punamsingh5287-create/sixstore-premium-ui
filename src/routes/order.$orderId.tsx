@@ -5,7 +5,8 @@ import { AppShell } from "@/components/AppShell";
 import { ProductLogo } from "@/components/ProductCard";
 import { EmptyState, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { inr } from "@/lib/cart-store";
-import { getOrder, getProduct } from "@/lib/mock-data";
+import { methodLabel, useOrderResult } from "@/lib/checkout-store";
+import { getOrder, getProduct, type Order } from "@/lib/mock-data";
 export const Route = createFileRoute("/order/$orderId")({
   head: ({ params }) => {
     const title = `Order ${params.orderId} — SixStore`;
@@ -65,7 +66,30 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 function OrderDetailsScreen() {
   const { orderId } = Route.useParams();
   const loading = useScreenLoad(420);
-  const order = getOrder(orderId);
+  const result = useOrderResult();
+  const justPlaced: Order | undefined =
+    result && result.orderId === orderId
+      ? {
+          id: result.orderId,
+          productId: result.productId,
+          planLabel: result.planLabel,
+          placedAt: result.placedAt,
+          amount: result.amount,
+          status: result.status === "success" ? "processing" : "failed",
+          note:
+            result.status === "success"
+              ? "We are provisioning your subscription — access details arrive in chat shortly."
+              : (result.reason ?? "Payment failed. Nothing was charged."),
+          method: methodLabel(result.method),
+          qty: 1,
+          deliveryType: "Instant digital delivery",
+          eligibility:
+            result.status === "success"
+              ? "Replacement available for the full plan term once delivered."
+              : "Nothing was charged — retry any time.",
+        }
+      : undefined;
+  const order = getOrder(orderId) ?? justPlaced;
   if (!order) {
     return (
       <AppShell title="Order" back backTo="/orders" showCart={false}>
