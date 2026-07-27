@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Check, ShieldCheck, Star, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
-import { ProductLogo } from "@/components/ProductCard";
+import { ProductLogo, StockBadge } from "@/components/ProductCard";
 import { EmptyState, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { cartActions, inr } from "@/lib/cart-store";
 import { getProduct } from "@/lib/mock-data";
@@ -104,6 +104,12 @@ function ProductScreen() {
                   {product.rating} ({product.reviews.toLocaleString("en-IN")})
                 </span>
                 <span>· {product.sold.toLocaleString("en-IN")} sold</span>
+              </div>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <StockBadge stock={getStock(product.id)} />
+                <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">
+                  {off}% off
+                </span>
               </div>
             </div>
           </section>
