@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ProductLogo } from "@/components/ProductCard";
 import { EmptyState, ErrorState, RowSkeletonList, useScreenLoad } from "@/components/states";
@@ -23,20 +24,23 @@ const statusStyles: Record<string, string> = {
   delivered: "bg-success/15 text-success",
   processing: "bg-primary/15 text-primary",
   failed: "bg-destructive/15 text-destructive",
+  refunded: "bg-secondary text-muted-foreground",
 };
+const tabs = ["all", "processing", "delivered", "failed", "refunded"] as const;
+type Tab = (typeof tabs)[number];
 function OrdersScreen() {
   const loading = useScreenLoad(500);
   const [failed, setFailed] = useState(false);
-  const [filter, setFilter] = useState<"all" | "delivered" | "processing" | "failed">("all");
+  const [filter, setFilter] = useState<Tab>("all");
   const list = mockOrders.filter((o) => filter === "all" || o.status === filter);
   return (
     <AppShell title="Orders" subtitle="Delivery status & history">
       <div className="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4">
-        {(["all", "processing", "delivered", "failed"] as const).map((f) => (
+        {tabs.map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`min-h-10 shrink-0 rounded-full border px-4 text-sm capitalize press ${
+            className={`press min-h-10 shrink-0 rounded-full border px-4 text-sm capitalize ${
               filter === f
                 ? "border-primary bg-primary/10 text-foreground"
                 : "border-border text-muted-foreground"
@@ -55,7 +59,7 @@ function OrdersScreen() {
         />
       ) : list.length === 0 ? (
         <EmptyState
-          title="No orders yet"
+          title={filter === "all" ? "No orders yet" : `No ${filter} orders`}
           body="Once you buy a subscription it will appear here with live delivery status."
           action={
             <Link
@@ -71,7 +75,15 @@ function OrdersScreen() {
           {list.map((o) => {
             const product = getProduct(o.productId);
             return (
-              <div key={o.id} className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-3">
+              <div key={o.id} className="layer-card flex flex-col gap-3 rounded-2xl border border-border p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[11px] font-semibold text-muted-foreground">Order {o.id}</span>
+                  <span
+                    className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold capitalize ${statusStyles[o.status]}`}
+                  >
+                    {o.status}
+                  </span>
+                </div>
                 <div className="flex items-center gap-3">
                   {product ? <ProductLogo product={product} size={44} /> : null}
                   <div className="min-w-0 flex-1">
@@ -82,17 +94,16 @@ function OrdersScreen() {
                       {o.planLabel} · {o.placedAt}
                     </p>
                   </div>
-                  <span
-                    className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold capitalize ${statusStyles[o.status]}`}
-                  >
-                    {o.status}
-                  </span>
+                  <span className="shrink-0 text-sm font-bold text-foreground">{inr(o.amount)}</span>
                 </div>
                 <p className="text-xs text-muted-foreground">{o.note}</p>
-                <div className="flex items-center justify-between border-t border-border pt-2">
-                  <span className="text-[11px] text-muted-foreground">Order {o.id}</span>
-                  <span className="text-sm font-bold text-foreground">{inr(o.amount)}</span>
-                </div>
+                <Link
+                  to="/order/$orderId"
+                  params={{ orderId: o.id }}
+                  className="press flex min-h-10 items-center justify-center gap-1 rounded-full border border-border text-xs font-semibold text-foreground"
+                >
+                  View details <ChevronRight className="size-3.5" />
+                </Link>
               </div>
             );
           })}
