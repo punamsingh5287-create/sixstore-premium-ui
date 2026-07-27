@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { ProductRow } from "@/components/ProductCard";
+import { SearchBar } from "@/components/SearchBar";
 import { CardSkeletonGrid, EmptyState, RowSkeletonList, useScreenLoad } from "@/components/states";
 import { categories, products } from "@/lib/mock-data";
 export const Route = createFileRoute("/categories")({
@@ -34,13 +35,11 @@ function CategoriesScreen() {
     );
   }, [active, query]);
   return (
-    <AppShell title="Browse" subtitle="OTT subscriptions & AI tools">
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search Netflix, ChatGPT, Spotify…"
-        className="mb-4 h-12 w-full rounded-2xl border border-border bg-card px-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/60"
-      />
+    <AppShell
+      title="Browse"
+      subtitle="OTT subscriptions & AI tools"
+      search={<SearchBar value={query} onChange={setQuery} />}
+    >
       {loading ? (
         <div className="flex flex-col gap-4">
           <CardSkeletonGrid count={4} />
@@ -56,7 +55,7 @@ function CategoriesScreen() {
                 <button
                   key={c.id}
                   onClick={() => setActive(isActive ? "all" : c.id)}
-                  className={`flex min-h-[86px] flex-col items-start justify-center gap-1 rounded-2xl border p-3 text-left active:scale-[0.98] ${
+                  className={`press flex min-h-[86px] flex-col items-start justify-center gap-1 rounded-2xl border p-3 text-left ${
                     isActive
                       ? "border-primary/60 bg-primary/10"
                       : "border-border bg-card"
