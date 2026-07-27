@@ -8,7 +8,7 @@ import { EmptyState, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { cartActions, inr } from "@/lib/cart-store";
 import { checkoutActions } from "@/lib/checkout-store";
 import { getProduct, getStock } from "@/lib/mock-data";
-export const Route = createFileRoute("/product/")({
+export const Route = createFileRoute("/product/$productId")({
   head: ({ params }) => {
     const product = getProduct(params.productId);
     const title = product ? `${product.name} — SixStore` : "Product — SixStore";
