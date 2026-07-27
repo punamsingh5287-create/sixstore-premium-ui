@@ -72,7 +72,7 @@ function CheckoutScreen() {
             </div>
             <button
               onClick={() => navigate({ to: "/payment" })}
-              className="press min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+              className="bounce-press ripple min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground"
             >
               Continue to Payment
             </button>
@@ -100,7 +100,7 @@ function CheckoutScreen() {
                 <button
                   aria-label="Decrease quantity"
                   onClick={() => checkoutActions.patch({ qty: Math.max(1, s.qty - 1) })}
-                  className="press grid size-9 place-items-center rounded-full bg-secondary text-foreground"
+                  className="bounce-press ripple grid size-9 place-items-center rounded-full bg-secondary text-foreground"
                 >
                   <Minus className="size-4" />
                 </button>
@@ -108,7 +108,7 @@ function CheckoutScreen() {
                 <button
                   aria-label="Increase quantity"
                   onClick={() => checkoutActions.patch({ qty: s.qty + 1 })}
-                  className="press grid size-9 place-items-center rounded-full bg-secondary text-foreground"
+                  className="bounce-press ripple grid size-9 place-items-center rounded-full bg-secondary text-foreground"
                 >
                   <Plus className="size-4" />
                 </button>
@@ -139,7 +139,7 @@ function CheckoutScreen() {
             </div>
             <button
               onClick={() => checkoutActions.patch({ useWallet: !draft.useWallet })}
-              className="press mt-1 min-h-10 rounded-full border border-border text-xs font-semibold text-foreground"
+              className="bounce-press ripple mt-1 min-h-10 rounded-full border border-border text-xs font-semibold text-foreground"
             >
               {draft.useWallet ? "Remove wallet balance" : "Use wallet balance (₹500)"}
             </button>

@@ -63,19 +63,19 @@ function FailureScreen() {
         <section className="flex flex-col gap-2">
           <button
             onClick={() => navigate({ to: "/payment" })}
-            className="press min-h-12 rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+            className="bounce-press ripple min-h-12 rounded-full bg-primary text-sm font-semibold text-primary-foreground"
           >
             Retry payment
           </button>
           <Link
             to="/checkout"
-            className="press flex min-h-12 items-center justify-center rounded-full border border-border text-sm font-semibold text-foreground"
+            className="bounce-press ripple flex min-h-12 items-center justify-center rounded-full border border-border text-sm font-semibold text-foreground"
           >
             Change payment method
           </Link>
           <Link
             to="/checkout"
-            className="press flex min-h-12 items-center justify-center rounded-full text-sm font-semibold text-muted-foreground"
+            className="bounce-press ripple flex min-h-12 items-center justify-center rounded-full text-sm font-semibold text-muted-foreground"
           >
             Return to checkout
           </Link>
