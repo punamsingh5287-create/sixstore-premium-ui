@@ -11,13 +11,27 @@ export function useScreenLoad(delay = 650) {
   return loading;
 }
 export function SkeletonBlock({ className }: { className?: string }) {
-  return <div className={cn("animate-pulse rounded-2xl bg-secondary", className)} />;
+  return <div className={cn("skeleton rounded-2xl", className)} />;
+}
+export function ProductCardSkeleton() {
+  return (
+    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-3">
+      <div className="flex items-start justify-between">
+        <SkeletonBlock className="size-12" />
+        <SkeletonBlock className="h-5 w-14 rounded-full" />
+      </div>
+      <SkeletonBlock className="h-3.5 w-2/3 rounded-md" />
+      <SkeletonBlock className="h-3 w-1/2 rounded-md" />
+      <SkeletonBlock className="h-4 w-1/3 rounded-md" />
+      <SkeletonBlock className="h-10 w-full rounded-full" />
+    </div>
+  );
 }
 export function CardSkeletonGrid({ count = 4 }: { count?: number }) {
   return (
     <div className="grid grid-cols-2 gap-3">
       {Array.from({ length: count }).map((_, i) => (
-        <SkeletonBlock key={i} className="h-40" />
+        <ProductCardSkeleton key={i} />
       ))}
     </div>
   );
@@ -26,7 +40,17 @@ export function RowSkeletonList({ count = 4 }: { count?: number }) {
   return (
     <div className="flex flex-col gap-3">
       {Array.from({ length: count }).map((_, i) => (
-        <SkeletonBlock key={i} className="h-[76px]" />
+        <div
+          key={i}
+          className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3"
+        >
+          <SkeletonBlock className="size-11" />
+          <div className="flex min-w-0 flex-1 flex-col gap-2">
+            <SkeletonBlock className="h-3.5 w-1/2 rounded-md" />
+            <SkeletonBlock className="h-3 w-3/4 rounded-md" />
+          </div>
+          <SkeletonBlock className="h-9 w-16 rounded-full" />
+        </div>
       ))}
     </div>
   );
@@ -61,7 +85,7 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry: () 
       <p className="max-w-[28ch] text-sm text-muted-foreground">{message}</p>
       <button
         onClick={onRetry}
-        className="min-h-11 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground active:scale-95"
+        className="press min-h-11 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
       >
         Try again
       </button>
