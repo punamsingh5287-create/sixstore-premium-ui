@@ -1,7 +1,9 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 
-const docs: Record<string, { title: string; intro: string; sections: { h: string; p: string }[] }> = {
+type LegalDoc = { title: string; intro: string; sections: { h: string; p: string }[] };
+
+const docs: Record<string, LegalDoc> = {
   privacy: {
     title: "Privacy Policy",
     intro:
@@ -55,7 +57,7 @@ export const Route = createFileRoute("/legal/$doc")({
 });
 
 function LegalScreen() {
-  const doc = Route.useLoaderData();
+  const doc = Route.useLoaderData() as LegalDoc;
   return (
     <AppShell title={doc.title} subtitle="SixStore" back showCart={false}>
       <div className="flex flex-col gap-4">
