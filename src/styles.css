@@ -216,3 +216,59 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---- Flagship depth system ---- */
+:root,
+.dark {
+  --shadow-card:
+    0 1px 0 0 oklch(1 0 0 / 6%) inset,
+    0 10px 24px -16px oklch(0 0 0 / 90%);
+  --shadow-float:
+    0 1px 0 0 oklch(1 0 0 / 7%) inset,
+    0 18px 42px -20px oklch(0 0 0 / 95%);
+  --shadow-gold: 0 20px 44px -24px oklch(0.82 0.16 84 / 45%);
+  --surface-layer: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--foreground) 6%, var(--card)),
+    var(--card) 55%
+  );
+}
+
+@utility layer-card {
+  background: var(--surface-layer);
+  box-shadow: var(--shadow-card);
+}
+
+@utility float-shadow {
+  box-shadow: var(--shadow-float);
+}
+
+@utility tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  &:active {
+    transform: perspective(700px) rotateX(3.5deg) scale(0.985);
+  }
+}
+
+@utility snap-x-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  & > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+}
+
+@utility safe-top {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+@utility safe-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
