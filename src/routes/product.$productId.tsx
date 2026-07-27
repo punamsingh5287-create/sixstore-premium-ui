@@ -68,7 +68,7 @@ function ProductScreen() {
                 cartActions.add(product.id, plan.id);
                 toast.success(`${product.name} added to cart`);
               }}
-              className="min-h-12 flex-1 rounded-full border border-border text-sm font-semibold text-foreground active:scale-95"
+              className="min-h-12 flex-1 rounded-full border border-border text-sm font-semibold text-foreground press"
             >
               Add to cart
             </button>
@@ -77,7 +77,7 @@ function ProductScreen() {
                 cartActions.add(product.id, plan.id);
                 navigate({ to: "/cart" });
               }}
-              className="min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground active:scale-95"
+              className="min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground press"
             >
               Buy now
             </button>
@@ -116,7 +116,7 @@ function ProductScreen() {
                   <button
                     key={p.id}
                     onClick={() => setPlanId(p.id)}
-                    className={`flex min-h-[60px] items-center justify-between gap-3 rounded-2xl border px-4 text-left active:scale-[0.99] ${
+                    className={`flex min-h-[60px] items-center justify-between gap-3 rounded-2xl border px-4 text-left press ${
                       selected ? "border-primary bg-primary/10" : "border-border bg-card"
                     }`}
                   >
