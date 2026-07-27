@@ -26,8 +26,8 @@ export function AppShell({
   const { count } = cartTotals(cart);
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background">
-      <header className="sticky top-0 z-30 border-b border-border/70 bg-background/95 backdrop-blur">
-        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 pb-3 pt-3">
+      <header className="safe-top sticky top-0 z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 pb-3">
           {back ? (
             <Link
               to="/"
@@ -76,9 +76,9 @@ export function AppShell({
         </div>
         {search ? <div className="px-4 pb-3">{search}</div> : null}
       </header>
-      <main className={cn("page-in flex-1 px-4 pb-28 pt-4", footer && "pb-44")}>{children}</main>
+      <main className={cn("page-in flex-1 px-4 pb-32 pt-4", footer && "pb-48")}>{children}</main>
       {footer ? (
-        <div className="fixed inset-x-0 bottom-[76px] z-30 mx-auto max-w-[480px] border-t border-border/70 bg-background/95 px-4 py-3 backdrop-blur">
+        <div className="float-shadow fixed inset-x-0 bottom-[86px] z-30 mx-auto max-w-[480px] border-y border-border/70 bg-background/92 px-4 py-3 backdrop-blur-xl">
           {footer}
         </div>
       ) : null}
