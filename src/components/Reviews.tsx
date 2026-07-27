@@ -150,7 +150,7 @@ export function ReviewsCarousel({ product }: { product: Product }) {
         {reviews.map((r) => (
           <article
             key={r.id}
-            className="press layer-card flex w-[80%] max-w-[320px] flex-col gap-3 rounded-3xl border border-border p-4"
+            className="press lift layer-card flex w-[80%] max-w-[320px] flex-col gap-3 rounded-3xl border border-border p-4"
           >
             <div className="flex items-center gap-3">
               <Avatar initials={r.initials} accent={product.accent} />
