@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PaymentRouteImport } from './routes/payment'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CategoriesRouteImport } from './routes/categories'
@@ -32,6 +33,11 @@ const SupportRoute = SupportRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentRoute = PaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrdersRoute = OrdersRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/categories': typeof CategoriesRoute
   '/checkout': typeof CheckoutRoute
   '/orders': typeof OrdersRoute
+  '/payment': typeof PaymentRoute
   '/profile': typeof ProfileRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesRoute
   '/checkout': typeof CheckoutRoute
   '/orders': typeof OrdersRoute
+  '/payment': typeof PaymentRoute
   '/profile': typeof ProfileRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/categories': typeof CategoriesRoute
   '/checkout': typeof CheckoutRoute
   '/orders': typeof OrdersRoute
+  '/payment': typeof PaymentRoute
   '/profile': typeof ProfileRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/checkout'
     | '/orders'
+    | '/payment'
     | '/profile'
     | '/support'
     | '/wallet'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/checkout'
     | '/orders'
+    | '/payment'
     | '/profile'
     | '/support'
     | '/wallet'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/checkout'
     | '/orders'
+    | '/payment'
     | '/profile'
     | '/support'
     | '/wallet'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   CategoriesRoute: typeof CategoriesRoute
   CheckoutRoute: typeof CheckoutRoute
   OrdersRoute: typeof OrdersRoute
+  PaymentRoute: typeof PaymentRoute
   ProfileRoute: typeof ProfileRoute
   SupportRoute: typeof SupportRoute
   WalletRoute: typeof WalletRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment': {
+      id: '/payment'
+      path: '/payment'
+      fullPath: '/payment'
+      preLoaderRoute: typeof PaymentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/orders': {
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesRoute: CategoriesRoute,
   CheckoutRoute: CheckoutRoute,
   OrdersRoute: OrdersRoute,
+  PaymentRoute: PaymentRoute,
   ProfileRoute: ProfileRoute,
   SupportRoute: SupportRoute,
   WalletRoute: WalletRoute,
