@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { ChevronRight, Star } from "lucide-react";
 import { BrandMark } from "./BrandMark";
 import { inr } from "@/lib/cart-store";
