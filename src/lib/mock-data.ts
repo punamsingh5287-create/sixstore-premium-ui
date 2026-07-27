@@ -193,8 +193,13 @@ export type Order = {
   planLabel: string;
   placedAt: string;
   amount: number;
-  status: "delivered" | "processing" | "failed";
+  status: "delivered" | "processing" | "failed" | "refunded";
   note: string;
+  method: string;
+  qty: number;
+  deliveryType: string;
+  credentials?: { label: string; value: string }[];
+  eligibility: string;
 };
 export const orders: Order[] = [
   {
@@ -205,6 +210,10 @@ export const orders: Order[] = [
     amount: 1499,
     status: "processing",
     note: "Seat is being provisioned — usually under 10 minutes.",
+    method: "UPI",
+    qty: 1,
+    deliveryType: "Account seat invite",
+    eligibility: "Replacement available once delivered.",
   },
   {
     id: "SX-10388",
@@ -214,6 +223,15 @@ export const orders: Order[] = [
     amount: 537,
     status: "delivered",
     note: "Credentials sent in chat. Warranty active till 18 Oct 2026.",
+    method: "SixStore Wallet",
+    qty: 1,
+    deliveryType: "Login credentials",
+    credentials: [
+      { label: "Email", value: "sx-nf-4821@sixstore.mail" },
+      { label: "Password", value: "••••••••••" },
+      { label: "Profile", value: "Profile 3" },
+    ],
+    eligibility: "Free replacement till 18 Oct 2026. Refund not applicable after delivery.",
   },
   {
     id: "SX-10201",
@@ -223,6 +241,11 @@ export const orders: Order[] = [
     amount: 1161,
     status: "delivered",
     note: "Upgrade applied to your Spotify ID.",
+    method: "Card",
+    qty: 1,
+    deliveryType: "Upgrade on your own ID",
+    credentials: [{ label: "Upgraded ID", value: "aarav.mehta@gmail.com" }],
+    eligibility: "Free replacement till 02 Jun 2027.",
   },
   {
     id: "SX-10077",
@@ -232,8 +255,26 @@ export const orders: Order[] = [
     amount: 1299,
     status: "failed",
     note: "Payment reversed to wallet. You can retry any time.",
+    method: "UPI",
+    qty: 1,
+    deliveryType: "Account seat invite",
+    eligibility: "Nothing was charged — retry any time.",
+  },
+  {
+    id: "SX-09984",
+    productId: "prime-video",
+    planLabel: "1 Month",
+    placedAt: "28 Apr 2026, 12:05",
+    amount: 99,
+    status: "refunded",
+    note: "Refunded to SixStore wallet on 29 Apr 2026.",
+    method: "SixStore Wallet",
+    qty: 1,
+    deliveryType: "Login credentials",
+    eligibility: "Refund completed. No further action needed.",
   },
 ];
+export const getOrder = (id: string) => orders.find((o) => o.id === id);
 export type WalletTx = {
   id: string;
   label: string;
