@@ -22,6 +22,7 @@ import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
 import { Route as OrderOrderIdRouteImport } from './routes/order.$orderId'
+import { Route as LegalDocRouteImport } from './routes/legal.$doc'
 
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
@@ -88,6 +89,11 @@ const OrderOrderIdRoute = OrderOrderIdRouteImport.update({
   path: '/order/$orderId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalDocRoute = LegalDocRouteImport.update({
+  id: '/legal/$doc',
+  path: '/legal/$doc',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
+  '/legal/$doc': typeof LegalDocRoute
   '/order/$orderId': typeof OrderOrderIdRoute
   '/product/$productId': typeof ProductProductIdRoute
 }
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
+  '/legal/$doc': typeof LegalDocRoute
   '/order/$orderId': typeof OrderOrderIdRoute
   '/product/$productId': typeof ProductProductIdRoute
 }
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
+  '/legal/$doc': typeof LegalDocRoute
   '/order/$orderId': typeof OrderOrderIdRoute
   '/product/$productId': typeof ProductProductIdRoute
 }
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/support'
     | '/wallet'
+    | '/legal/$doc'
     | '/order/$orderId'
     | '/product/$productId'
   fileRoutesByTo: FileRoutesByTo
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/support'
     | '/wallet'
+    | '/legal/$doc'
     | '/order/$orderId'
     | '/product/$productId'
   id:
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/support'
     | '/wallet'
+    | '/legal/$doc'
     | '/order/$orderId'
     | '/product/$productId'
   fileRoutesById: FileRoutesById
@@ -195,6 +207,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   SupportRoute: typeof SupportRoute
   WalletRoute: typeof WalletRoute
+  LegalDocRoute: typeof LegalDocRoute
   OrderOrderIdRoute: typeof OrderOrderIdRoute
   ProductProductIdRoute: typeof ProductProductIdRoute
 }
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrderOrderIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal/$doc': {
+      id: '/legal/$doc'
+      path: '/legal/$doc'
+      fullPath: '/legal/$doc'
+      preLoaderRoute: typeof LegalDocRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -307,6 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   SupportRoute: SupportRoute,
   WalletRoute: WalletRoute,
+  LegalDocRoute: LegalDocRoute,
   OrderOrderIdRoute: OrderOrderIdRoute,
   ProductProductIdRoute: ProductProductIdRoute,
 }

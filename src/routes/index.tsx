@@ -6,6 +6,8 @@ import { ProductCarousel } from "@/components/ProductCarousel";
 import { WalletCard3D } from "@/components/WalletCard3D";
 import { ProductCard, ProductRow } from "@/components/ProductCard";
 import { SearchBarButton } from "@/components/SearchBar";
+import { WhySixStore } from "@/components/WhySixStore";
+import { SiteFooter } from "@/components/SiteFooter";
 import { CardSkeletonGrid, RowSkeletonList, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { categories, products, user, wallet } from "@/lib/mock-data";
 export const Route = createFileRoute("/")({
@@ -113,6 +115,8 @@ function HomeScreen() {
               <ProductRow key={p.id} product={p} />
             ))}
           </section>
+          <WhySixStore />
+          <SiteFooter />
         </div>
       )}
     </AppShell>
