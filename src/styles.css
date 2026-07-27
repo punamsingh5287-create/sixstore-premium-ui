@@ -196,6 +196,48 @@
   animation: sx-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes sx-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sx-hero-logo {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(14px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@utility hero-orbit {
+  animation: sx-orbit 22s linear infinite;
+}
+
+@utility hero-logo-in {
+  animation: sx-hero-logo 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility reveal {
+  animation: sx-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orbit,
+  .hero-logo-in,
+  .reveal,
+  .float-soft {
+    animation: none !important;
+  }
+}
+
 @keyframes sx-success-ring {
   from {
     opacity: 0;
