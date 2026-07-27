@@ -226,6 +226,9 @@ function ProductScreen() {
               <li>3. Access details land in Orders and in your chat.</li>
             </ol>
           </section>
+          <div className="reveal" style={{ animationDelay: "210ms" }}>
+            <ReviewsCarousel product={product} />
+          </div>
         </div>
       )}
     </AppShell>
