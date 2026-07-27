@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Star } from "lucide-react";
-import { toast } from "sonner";
+import { ChevronRight, Star } from "lucide-react";
 import { BrandMark } from "./BrandMark";
-import { cartActions, inr } from "@/lib/cart-store";
+import { inr } from "@/lib/cart-store";
 import { getStock, type Product } from "@/lib/mock-data";
 export function ProductLogo({ product, size = 48 }: { product: Product; size?: number }) {
   return <BrandMark product={product} size={size} />;
@@ -28,40 +27,16 @@ export function StockBadge({ stock, className = "" }: { stock: number; className
     </span>
   );
 }
-function BuyButton({ product, compact }: { product: Product; compact?: boolean }) {
-  const navigate = useNavigate();
-  const stock = getStock(product.id);
-  const plan = product.plans[0];
-  return (
-    <button
-      type="button"
-      disabled={stock === 0}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        cartActions.add(product.id, plan.id);
-        toast.success(`${product.name} added — ${plan.label}`);
-        navigate({ to: "/cart" });
-      }}
-      className={`press relative z-10 rounded-full bg-primary font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground ${
-        compact ? "min-h-10 px-4 text-xs" : "min-h-10 w-full text-xs"
-      }`}
-    >
-      {stock === 0 ? "Sold out" : "Buy"}
-    </button>
-  );
-}
 export function ProductCard({ product }: { product: Product }) {
   const from = product.plans[0];
   const stock = getStock(product.id);
   return (
-    <div className="tilt layer-card relative flex h-full flex-col gap-2.5 rounded-2xl border border-border p-3">
-      <Link
-        to="/product/$productId"
-        params={{ productId: product.id }}
-        className="absolute inset-0 z-0 rounded-2xl"
-        aria-label={`View ${product.name}`}
-      />
+    <Link
+      to="/product/$productId"
+      params={{ productId: product.id }}
+      aria-label={`View ${product.name}`}
+      className="tilt layer-card press relative flex h-full flex-col gap-2.5 rounded-2xl border border-border p-3"
+    >
       <div className="flex items-start justify-between gap-2">
         <BrandMark product={product} />
         <span className="rounded-full bg-success/15 px-2 py-1 text-[10px] font-bold text-success">
@@ -79,27 +54,26 @@ export function ProductCard({ product }: { product: Product }) {
           {product.rating}
         </span>
       </div>
-      <div className="flex items-end justify-between gap-2">
+      <div className="mt-auto flex items-end justify-between gap-2">
         <div className="min-w-0">
+          <p className="text-[10px] uppercase tracking-wide text-muted-foreground">From</p>
           <p className="text-sm font-bold text-foreground">{inr(from.price)}</p>
-          <p className="text-[11px] text-muted-foreground line-through">{inr(from.mrp)}</p>
         </div>
+        <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
       </div>
-      <BuyButton product={product} />
-    </div>
+    </Link>
   );
 }
 export function ProductRow({ product }: { product: Product }) {
   const from = product.plans[0];
   const stock = getStock(product.id);
   return (
-    <div className="tilt layer-card relative flex items-center gap-3 rounded-2xl border border-border p-3">
-      <Link
-        to="/product/$productId"
-        params={{ productId: product.id }}
-        className="absolute inset-0 z-0 rounded-2xl"
-        aria-label={`View ${product.name}`}
-      />
+    <Link
+      to="/product/$productId"
+      params={{ productId: product.id }}
+      aria-label={`View ${product.name}`}
+      className="tilt layer-card press relative flex items-center gap-3 rounded-2xl border border-border p-3"
+    >
       <BrandMark product={product} size={44} />
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-card-foreground">{product.name}</p>
@@ -109,10 +83,13 @@ export function ProductRow({ product }: { product: Product }) {
           <span className="text-[10px] font-semibold text-success">{discountOf(product)}% off</span>
         </div>
       </div>
-      <div className="flex shrink-0 flex-col items-end gap-1.5">
-        <p className="text-sm font-bold text-foreground">{inr(from.price)}</p>
-        <BuyButton product={product} compact />
+      <div className="flex shrink-0 items-center gap-2">
+        <div className="text-right">
+          <p className="text-[10px] uppercase tracking-wide text-muted-foreground">From</p>
+          <p className="text-sm font-bold text-foreground">{inr(from.price)}</p>
+        </div>
+        <ChevronRight className="size-4 text-muted-foreground" />
       </div>
-    </div>
+    </Link>
   );
 }
