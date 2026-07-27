@@ -44,16 +44,13 @@ function timelineFor(status: string) {
     refunded: 3,
   };
   const upto = reached[status] ?? 0;
-  return base.map((step, i) => ({
-    ...step,
-    done: i <= upto,
-    label:
-      status === "failed" && step.key === "paid"
-        ? "Payment failed"
-        : status === "refunded" && step.key === "delivered"
-          ? "Refunded to wallet"
-          : step.label,
-  }));
+  return base.map((step, i) => {
+    if (status === "failed" && step.key === "paid")
+      return { ...step, done: false, label: "Payment failed", body: "Your bank declined the transaction." };
+    if (status === "refunded" && step.key === "delivered")
+      return { ...step, done: true, label: "Refunded to wallet", body: "Amount credited back to your SixStore wallet." };
+    return { ...step, done: i <= upto };
+  });
 }
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
