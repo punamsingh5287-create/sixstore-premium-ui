@@ -176,6 +176,17 @@ export const products: Product[] = [
   },
 ];
 export const getProduct = (id: string) => products.find((p) => p.id === id);
+export const stockById: Record<string, number> = {
+  "netflix-premium": 42,
+  "prime-video": 7,
+  "spotify-premium": 68,
+  "hotstar-sports": 3,
+  "chatgpt-plus": 15,
+  "claude-pro": 9,
+  midjourney: 0,
+  "cursor-pro": 24,
+};
+export const getStock = (id: string) => stockById[id] ?? 0;
 export type Order = {
   id: string;
   productId: string;
