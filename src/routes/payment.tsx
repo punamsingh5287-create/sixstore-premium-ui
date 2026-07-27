@@ -60,7 +60,7 @@ function PaymentScreen() {
         <section className="layer-card float-shadow flex flex-col items-center gap-4 rounded-3xl border border-border p-6 text-center">
           <div className="relative grid size-20 place-items-center">
             <span className="absolute inset-0 rounded-full border-2 border-border" />
-            <span className="absolute inset-0 spinner border-transparent" />
+            <span className="absolute inset-0 spinner" />
             <Lock className="size-7 text-primary" />
           </div>
           <div>
