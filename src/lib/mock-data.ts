@@ -334,3 +334,68 @@ export const faqs = [
     a: "Failed or undelivered orders are refunded to your SixStore wallet instantly, and to the source account within 5-7 days on request.",
   },
 ];
+export type Review = {
+  id: string;
+  name: string;
+  initials: string;
+  rating: number;
+  when: string;
+  plan: string;
+  body: string;
+};
+
+const reviewSeeds: Omit<Review, "id">[] = [
+  {
+    name: "Aarav Mehta",
+    initials: "AM",
+    rating: 5,
+    when: "2 days ago",
+    plan: "3 Months",
+    body: "Delivered in under 4 minutes. Login worked on TV and phone instantly — smoothest purchase I've had here.",
+  },
+  {
+    name: "Priya Nair",
+    initials: "PN",
+    rating: 5,
+    when: "5 days ago",
+    plan: "12 Months",
+    body: "Been running the yearly plan without a single hiccup. Support replaced my seat the same day I asked.",
+  },
+  {
+    name: "Rohan Gupta",
+    initials: "RG",
+    rating: 4,
+    when: "1 week ago",
+    plan: "1 Month",
+    body: "Great price and quick delivery. Took a few extra minutes at peak hours but everything worked fine.",
+  },
+  {
+    name: "Sneha Iyer",
+    initials: "SI",
+    rating: 5,
+    when: "2 weeks ago",
+    plan: "3 Months",
+    body: "Warranty is real — they sorted a re-login within an hour. Feels safer than random Telegram sellers.",
+  },
+  {
+    name: "Kabir Shah",
+    initials: "KS",
+    rating: 5,
+    when: "3 weeks ago",
+    plan: "12 Months",
+    body: "Paid from wallet, got credentials in orders immediately. Renewing here from now on.",
+  },
+];
+
+export function getReviews(productId: string): Review[] {
+  const offset = productId.charCodeAt(0) % reviewSeeds.length;
+  return reviewSeeds.map((r, i) => ({
+    ...reviewSeeds[(i + offset) % reviewSeeds.length],
+    id: `${productId}-rv-${i}`,
+  })).map((r, i) => ({ ...r, id: `${productId}-rv-${i}` }));
+}
+
+export function ratingBreakdown(total: number) {
+  const weights = [0.78, 0.14, 0.05, 0.02, 0.01];
+  return weights.map((w, i) => ({ stars: 5 - i, count: Math.round(total * w) }));
+}
