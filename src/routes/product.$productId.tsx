@@ -98,38 +98,62 @@ function ProductScreen() {
           <SkeletonBlock className="h-40" />
         </div>
       ) : (
-        <div className="flex flex-col gap-6">
-          <section className="tilt layer-card float-shadow flex flex-col gap-4 rounded-3xl border border-border p-4">
-            <div className="flex items-center gap-4">
-              <ProductLogo product={product} size={72} />
-              <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <h2 className="truncate text-lg font-bold text-foreground">{product.name}</h2>
-                  <BadgeCheck className="size-4 shrink-0 text-primary" />
-                </div>
-                <p className="truncate text-sm text-muted-foreground">{product.tagline}</p>
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <Star className="size-3 fill-primary text-primary" />
-                    {product.rating} ({product.reviews.toLocaleString("en-IN")})
-                  </span>
-                  <span>· {product.sold.toLocaleString("en-IN")} sold</span>
-                </div>
+        <div className="flex flex-col gap-8">
+          <section className="reveal relative -mx-4 flex flex-col items-center overflow-hidden px-6 pb-6 pt-4 text-center">
+            <span
+              aria-hidden="true"
+              className="glow-breathe pointer-events-none absolute left-1/2 top-2 size-64 -translate-x-1/2 rounded-full bg-primary/20 blur-[70px]"
+            />
+            <span
+              aria-hidden="true"
+              className="hero-orbit pointer-events-none absolute left-1/2 top-4 size-56 -translate-x-1/2 rounded-full opacity-40 [background:conic-gradient(from_0deg,transparent,var(--primary),transparent_55%)] [mask-image:radial-gradient(circle,transparent_58%,black_60%,transparent_72%)]"
+            />
+            <div className="hero-logo-in relative">
+              <div className="float-soft">
+                <ProductLogo product={product} size={112} />
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <h2 className="relative mt-5 font-display text-[28px] font-bold leading-tight tracking-tight text-foreground">
+              {product.name}
+            </h2>
+            <p className="relative mt-1 max-w-[300px] text-sm leading-relaxed text-muted-foreground">
+              {product.tagline}
+            </p>
+            <div className="relative mt-3 flex flex-wrap items-center justify-center gap-2">
+              <span className="flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-semibold text-foreground">
+                <Star className="size-3 fill-primary text-primary" />
+                {product.rating}
+                <span className="font-normal text-muted-foreground">
+                  ({product.reviews.toLocaleString("en-IN")})
+                </span>
+              </span>
+              <span className="flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-semibold text-foreground">
+                <BadgeCheck className="size-3 text-primary" /> Verified
+              </span>
               <StockBadge stock={stock} />
-              <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">
+              <span className="rounded-full bg-success/15 px-2.5 py-1 text-[11px] font-bold text-success">
                 {off}% off
               </span>
-              <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
-                Verified seller
-              </span>
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">{product.description}</p>
+            <p className="relative mt-4 text-xs text-muted-foreground">
+              Starting at{" "}
+              <span className="text-base font-bold text-foreground">
+                {inr(product.plans[0].price)}
+              </span>
+            </p>
           </section>
-          <section className="flex flex-col gap-3">
-            <h3 className="text-sm font-semibold text-foreground">Choose a plan</h3>
+          <section className="reveal flex flex-col gap-2 text-center" style={{ animationDelay: "60ms" }}>
+            <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
+              Built for how you watch, work and create.
+            </h3>
+            <p className="mx-auto max-w-[320px] text-sm leading-relaxed text-muted-foreground">
+              {product.description}
+            </p>
+          </section>
+          <section className="reveal flex flex-col gap-3" style={{ animationDelay: "90ms" }}>
+            <h3 className="font-display text-lg font-bold tracking-tight text-foreground">
+              Choose a plan
+            </h3>
             <div className="flex flex-col gap-2">
               {product.plans.map((p) => {
                 const selected = p.id === plan.id;
@@ -156,8 +180,10 @@ function ProductScreen() {
               })}
             </div>
           </section>
-          <section className="flex flex-col gap-3">
-            <h3 className="text-sm font-semibold text-foreground">What you get</h3>
+          <section className="reveal flex flex-col gap-3" style={{ animationDelay: "120ms" }}>
+            <h3 className="font-display text-lg font-bold tracking-tight text-foreground">
+              What you get
+            </h3>
             <ul className="grid grid-cols-2 gap-2">
               {product.highlights.map((h) => (
                 <li
@@ -170,7 +196,7 @@ function ProductScreen() {
               ))}
             </ul>
           </section>
-          <section className="grid gap-2">
+          <section className="reveal grid gap-2" style={{ animationDelay: "150ms" }}>
             {[
               { icon: Zap, title: "Instant digital delivery", body: "Credentials arrive in chat in ~5 minutes." },
               { icon: ShieldCheck, title: "Full-term warranty", body: "Covered for the entire plan duration." },
@@ -188,7 +214,10 @@ function ProductScreen() {
               </div>
             ))}
           </section>
-          <section className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-4">
+          <section
+            className="reveal flex flex-col gap-2 rounded-2xl border border-border bg-card p-4"
+            style={{ animationDelay: "180ms" }}
+          >
             <h3 className="text-sm font-semibold text-foreground">How delivery works</h3>
             <ol className="flex flex-col gap-2 text-xs text-muted-foreground">
               <li>1. Pick a plan and pay securely inside Telegram.</li>
