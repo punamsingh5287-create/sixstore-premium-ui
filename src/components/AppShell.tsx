@@ -43,7 +43,7 @@ export function AppShell({
               <button
                 type="button"
                 onClick={onBack}
-                className="press grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+                className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
                 aria-label="Go back"
               >
                 <ChevronLeft className="size-5" />
@@ -51,7 +51,7 @@ export function AppShell({
             ) : (
             <Link
               to={backTo ?? "/"}
-              className="press grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+              className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
               aria-label="Go back"
             >
               <ChevronLeft className="size-5" />
@@ -97,7 +97,7 @@ export function AppShell({
               <Link
                 to="/wallet"
                 aria-label={`Wallet balance ${inr(walletBalance)}`}
-                className="press glass-chip flex h-11 items-center gap-1.5 rounded-full border border-border/70 px-3"
+                className="bounce-press ripple glass-chip flex h-11 items-center gap-1.5 rounded-full border border-border/70 px-3"
               >
                 <Wallet className="size-4 text-primary" />
                 <span className="text-xs font-bold text-foreground">{inr(walletBalance)}</span>
@@ -107,7 +107,7 @@ export function AppShell({
             <Link
               to="/cart"
               aria-label="Open cart"
-              className="press glass-chip relative grid size-11 shrink-0 place-items-center rounded-full border border-border/70 text-foreground"
+              className="bounce-press ripple glass-chip relative grid size-11 shrink-0 place-items-center rounded-full border border-border/70 text-foreground"
             >
               <ShoppingBag className="size-5" />
               {count > 0 ? (

@@ -85,7 +85,7 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry: () 
       <p className="max-w-[28ch] text-sm text-muted-foreground">{message}</p>
       <button
         onClick={onRetry}
-        className="press min-h-11 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
+        className="bounce-press ripple min-h-11 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
       >
         Try again
       </button>

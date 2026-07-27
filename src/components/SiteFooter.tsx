@@ -62,7 +62,7 @@ export function SiteFooter() {
         href="https://t.me/sixstore"
         target="_blank"
         rel="noreferrer"
-        className="press glass-chip flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 text-sm font-semibold text-foreground"
+        className="bounce-press ripple glass-chip flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 text-sm font-semibold text-foreground"
       >
         <Send className="size-4 text-primary" />
         Join us on Telegram

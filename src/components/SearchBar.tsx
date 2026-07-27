@@ -26,7 +26,7 @@ export function SearchBar({
 }
 export function SearchBarButton({ onClick }: { onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} className={`press w-full ${shell}`}>
+    <button type="button" onClick={onClick} className={`bounce-press w-full ${shell}`}>
       <Search className="size-4 shrink-0 text-muted-foreground" />
       <span className="truncate text-sm text-muted-foreground">{PLACEHOLDER}</span>
     </button>

@@ -85,7 +85,7 @@ function HomeScreen() {
                 <Link
                   key={c.id}
                   to="/categories"
-                  className="press layer-card flex min-h-11 shrink-0 items-center rounded-full border border-border px-4 text-sm text-foreground"
+                  className="bounce-press lift layer-card flex min-h-11 shrink-0 items-center rounded-full border border-border px-4 text-sm text-foreground"
                 >
                   {c.name}
                 </Link>

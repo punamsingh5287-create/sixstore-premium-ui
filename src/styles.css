@@ -423,3 +423,119 @@
 @utility safe-bottom {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }
+
+/* ---- Micro-interaction polish ---- */
+@keyframes sx-bounce-press {
+  0% {
+    transform: scale(0.94);
+  }
+  55% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sx-ripple {
+  from {
+    opacity: 0.28;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes sx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cards lift slightly on hover and settle on press */
+@utility lift {
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-float);
+    }
+  }
+  &:active {
+    transform: translateY(0) scale(0.985);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+/* Buttons: soft bounce back after press */
+@utility bounce-press {
+  transition:
+    transform 0.14s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+  will-change: transform;
+  &:active {
+    transform: scale(0.94);
+  }
+  &:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--primary) 70%, transparent);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    &:not(:active) {
+      animation: none;
+    }
+    &:active {
+      animation: sx-bounce-press 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+}
+
+/* Touch ripple, CSS only */
+@utility ripple {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 140%;
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--foreground) 42%, transparent);
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+    z-index: -1;
+  }
+  &:active::after {
+    animation: sx-ripple 0.45s ease-out;
+  }
+}
+
+/* Premium loading spinner */
+@utility spinner {
+  border-radius: 9999px;
+  border: 2px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  border-top-color: var(--primary);
+  animation: sx-spin 0.7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift,
+  .bounce-press,
+  .ripple {
+    transition: none;
+  }
+  .ripple::after {
+    display: none;
+  }
+}

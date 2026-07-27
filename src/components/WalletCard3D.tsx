@@ -29,14 +29,14 @@ export function WalletCard3D() {
           <div className="flex shrink-0 items-center gap-2">
             <Link
               to="/wallet"
-              className="press flex min-h-10 items-center rounded-full border border-border bg-background/40 px-3.5 text-xs font-semibold text-foreground backdrop-blur"
+              className="bounce-press ripple flex min-h-10 items-center rounded-full border border-border bg-background/40 px-3.5 text-xs font-semibold text-foreground backdrop-blur"
             >
               Top up
             </Link>
             <Link
               to="/categories"
               aria-label="Browse store"
-              className="press grid size-10 place-items-center rounded-full bg-primary text-primary-foreground"
+              className="bounce-press ripple grid size-10 place-items-center rounded-full bg-primary text-primary-foreground"
             >
               <ArrowRight className="size-4" />
             </Link>
