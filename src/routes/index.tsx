@@ -35,7 +35,7 @@ function HomeScreen() {
   return (
     <AppShell
       title={`Hi, ${user.name.split(" ")[0]}`}
-      subtitle="Premium access, member prices"
+      subtitle="Member prices, instant delivery"
       membership={user.tier}
       walletBalance={wallet.balance}
       search={<SearchBarButton onClick={() => navigate({ to: "/categories" })} />}
