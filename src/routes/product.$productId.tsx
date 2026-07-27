@@ -6,7 +6,7 @@ import { AppShell } from "@/components/AppShell";
 import { ProductLogo, StockBadge } from "@/components/ProductCard";
 import { EmptyState, SkeletonBlock, useScreenLoad } from "@/components/states";
 import { cartActions, inr } from "@/lib/cart-store";
-import { getProduct } from "@/lib/mock-data";
+import { getProduct, getStock } from "@/lib/mock-data";
 export const Route = createFileRoute("/product/$productId")({
   head: ({ params }) => {
     const product = getProduct(params.productId);
