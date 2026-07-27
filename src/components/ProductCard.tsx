@@ -55,7 +55,7 @@ export function ProductCard({ product }: { product: Product }) {
   const from = product.plans[0];
   const stock = getStock(product.id);
   return (
-    <div className="press relative flex flex-col gap-2.5 rounded-2xl border border-border bg-card p-3">
+    <div className="tilt layer-card relative flex h-full flex-col gap-2.5 rounded-2xl border border-border p-3">
       <Link
         to="/product/$productId"
         params={{ productId: product.id }}
@@ -93,7 +93,7 @@ export function ProductRow({ product }: { product: Product }) {
   const from = product.plans[0];
   const stock = getStock(product.id);
   return (
-    <div className="press relative flex items-center gap-3 rounded-2xl border border-border bg-card p-3">
+    <div className="tilt layer-card relative flex items-center gap-3 rounded-2xl border border-border p-3">
       <Link
         to="/product/$productId"
         params={{ productId: product.id }}
