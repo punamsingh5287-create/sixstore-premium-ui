@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Clock, Truck } from "lucide-react";
+import { Clock, Truck } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ProductLogo } from "@/components/ProductCard";
 import { inr } from "@/lib/cart-store";
@@ -29,9 +29,22 @@ function SuccessScreen() {
     <AppShell title="Order confirmed" back backTo="/orders" hideNav showCart={false}>
       <div className="flex flex-col gap-5">
         <section className="layer-card float-shadow flex flex-col items-center gap-3 rounded-3xl border border-border p-6 text-center">
-          <div className="pop-in grid size-20 place-items-center rounded-full bg-success/15">
-            <div className="grid size-14 place-items-center rounded-full bg-success/25">
-              <Check className="size-8 text-success" strokeWidth={3} />
+          <div className="relative grid size-20 place-items-center">
+            <span className="success-halo absolute inset-0 rounded-full bg-success/30" aria-hidden="true" />
+            <div className="success-ring relative grid size-20 place-items-center rounded-full bg-success/15">
+              <div className="grid size-14 place-items-center rounded-full bg-success/25">
+                <svg viewBox="0 0 24 24" className="size-8" aria-hidden="true">
+                  <path
+                    d="M5 12.5l4.5 4.5L19 7.5"
+                    className="success-draw"
+                    fill="none"
+                    stroke="var(--success)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
           <h2 className="text-lg font-bold text-foreground">Order confirmed</h2>
