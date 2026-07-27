@@ -241,6 +241,70 @@
   animation: sx-success-draw 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.32s both;
 }
 
+@keyframes sx-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-2.5px) rotate(-0.6deg);
+  }
+}
+
+@keyframes sx-glow-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@utility float-soft {
+  animation: sx-float 4.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@utility glow-breathe {
+  animation: sx-glow-breathe 4.2s ease-in-out infinite;
+}
+
+@utility logo-3d {
+  background-image: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--primary) 30%, transparent),
+    color-mix(in oklab, var(--card) 92%, transparent) 55%,
+    color-mix(in oklab, var(--background) 96%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 22%, transparent),
+    inset 0 -1px 2px color-mix(in oklab, black 45%, transparent),
+    0 6px 14px -6px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+@utility glass-chip {
+  background-image: linear-gradient(
+    150deg,
+    color-mix(in oklab, white 12%, transparent),
+    color-mix(in oklab, white 3%, transparent) 45%,
+    transparent
+  );
+  background-color: color-mix(in oklab, var(--card) 70%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 20%, transparent),
+    inset 0 -1px 3px color-mix(in oklab, black 40%, transparent),
+    0 8px 18px -10px color-mix(in oklab, black 80%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-soft,
+  .glow-breathe {
+    animation: none;
+  }
+}
+
 @utility press {
   transition:
     transform 0.14s cubic-bezier(0.22, 1, 0.36, 1),

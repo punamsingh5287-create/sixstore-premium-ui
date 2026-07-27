@@ -7,7 +7,7 @@ import { WalletCard3D } from "@/components/WalletCard3D";
 import { ProductCard, ProductRow } from "@/components/ProductCard";
 import { SearchBarButton } from "@/components/SearchBar";
 import { CardSkeletonGrid, RowSkeletonList, SkeletonBlock, useScreenLoad } from "@/components/states";
-import { categories, products, user } from "@/lib/mock-data";
+import { categories, products, user, wallet } from "@/lib/mock-data";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -35,7 +35,9 @@ function HomeScreen() {
   return (
     <AppShell
       title={`Hi, ${user.name.split(" ")[0]}`}
-      subtitle="Premium access, member prices"
+      subtitle="Member prices"
+      membership={user.tier}
+      walletBalance={wallet.balance}
       search={<SearchBarButton onClick={() => navigate({ to: "/categories" })} />}
     >
       {loading ? (

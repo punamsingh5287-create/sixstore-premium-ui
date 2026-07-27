@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ShoppingBag } from "lucide-react";
+import { ChevronLeft, Crown, ShoppingBag, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "./BottomNav";
-import { cartTotals, useCart } from "@/lib/cart-store";
+import { cartTotals, inr, useCart } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
 import brandLogo from "@/assets/sixstore-logo.jpg.asset.json";
 export function AppShell({
@@ -16,6 +16,8 @@ export function AppShell({
   children,
   footer,
   search,
+  membership,
+  walletBalance,
 }: {
   title: string;
   subtitle?: string;
@@ -27,6 +29,8 @@ export function AppShell({
   children: ReactNode;
   footer?: ReactNode;
   search?: ReactNode;
+  membership?: string;
+  walletBalance?: number;
 }) {
   const cart = useCart();
   const { count } = cartTotals(cart);
@@ -54,31 +58,56 @@ export function AppShell({
             </Link>
             )
           ) : (
-            <Link
-              to="/"
-              aria-label="SixStore home"
-              className="press grid size-11 shrink-0 place-items-center overflow-hidden rounded-2xl border border-primary/25 bg-primary/10"
-            >
-              <img
-                src={brandLogo.url}
-                alt="SixStore"
-                className="size-11 scale-[1.35] object-contain mix-blend-screen invert"
+            <Link to="/" aria-label="SixStore home" className="press relative grid size-11 shrink-0 place-items-center">
+              <span
+                aria-hidden="true"
+                className="glow-breathe absolute -inset-2 rounded-full bg-primary/35 blur-xl"
               />
+              <span className="logo-3d float-soft relative grid size-11 place-items-center overflow-hidden rounded-2xl border border-primary/30">
+                <img
+                  src={brandLogo.url}
+                  alt="SixStore"
+                  className="size-11 scale-[1.35] object-contain mix-blend-screen invert drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/20 to-transparent"
+                />
+              </span>
             </Link>
           )}
           <div className="min-w-0">
-            <h1 className="truncate text-[17px] font-bold leading-tight tracking-tight text-foreground">
-              {title}
-            </h1>
+            <div className="flex min-w-0 items-center gap-1.5">
+              <h1 className="truncate text-[17px] font-bold leading-tight tracking-tight text-foreground">
+                {title}
+              </h1>
+              {membership ? (
+                <span className="glass-chip inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/35 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">
+                  <Crown className="size-3" />
+                  {membership}
+                </span>
+              ) : null}
+            </div>
             {subtitle ? (
               <p className="truncate text-xs leading-tight text-muted-foreground">{subtitle}</p>
             ) : null}
           </div>
-          {showCart ? (
+          <div className="flex shrink-0 items-center gap-2">
+            {typeof walletBalance === "number" ? (
+              <Link
+                to="/wallet"
+                aria-label={`Wallet balance ${inr(walletBalance)}`}
+                className="press glass-chip flex h-11 items-center gap-1.5 rounded-full border border-border/70 px-3"
+              >
+                <Wallet className="size-4 text-primary" />
+                <span className="text-xs font-bold text-foreground">{inr(walletBalance)}</span>
+              </Link>
+            ) : null}
+            {showCart ? (
             <Link
               to="/cart"
               aria-label="Open cart"
-              className="press relative grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+              className="press glass-chip relative grid size-11 shrink-0 place-items-center rounded-full border border-border/70 text-foreground"
             >
               <ShoppingBag className="size-5" />
               {count > 0 ? (
@@ -87,9 +116,10 @@ export function AppShell({
                 </span>
               ) : null}
             </Link>
-          ) : (
-            <div className="size-11" />
-          )}
+            ) : typeof walletBalance === "number" ? null : (
+              <div className="size-11" />
+            )}
+          </div>
         </div>
         {search ? <div className="px-4 pb-3">{search}</div> : null}
       </header>
