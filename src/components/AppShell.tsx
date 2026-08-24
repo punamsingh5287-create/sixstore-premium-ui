@@ -68,7 +68,7 @@ export function AppShell({
             <Link to="/" aria-label="SixStore home" className="press relative grid size-11 shrink-0 place-items-center">
               <span
                 aria-hidden="true"
-                className="glow-breathe absolute -inset-2 rounded-full bg-primary/35 blur-xl"
+                className="glow-breathe accent-glow absolute -inset-2 rounded-full blur-xl"
               />
               <span className="logo-3d float-soft relative grid size-11 place-items-center overflow-hidden rounded-2xl border border-primary/30">
                 <img
