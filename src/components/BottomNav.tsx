@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Home, LayoutGrid, Receipt, User, Wallet } from "lucide-react";
 import { navIndexFor, navSections } from "@/lib/nav-sections";
+import { useNavAutoHide } from "./useNavAutoHide";
 import { cn } from "@/lib/utils";
+
 
 const items = [
   { to: "/", label: "Home", Icon: Home, exact: true },
@@ -136,9 +138,19 @@ export function BottomNav() {
   }, [dragging]);
 
   const indicatorX = dragPos ?? (activeIndex >= 0 ? activeIndex * cellWidth() : 0);
+  const autoHidden = navHidden && !dragging;
 
   return (
-    <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 mx-auto max-w-[480px] px-3 pt-2">
+    <nav
+      className={cn(
+        "safe-bottom fixed inset-x-0 bottom-0 z-40 mx-auto max-w-[480px] px-3 pt-2 will-change-transform",
+        "transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+        autoHidden
+          ? "pointer-events-none translate-y-[130%] opacity-0"
+          : "translate-y-0 opacity-100",
+      )}
+    >
+
       <ul
         ref={listRef}
         onPointerDown={onPointerDown}
