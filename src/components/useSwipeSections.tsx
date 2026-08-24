@@ -2,22 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { navIndexFor } from "@/lib/nav-sections";
 
-function haptic() {
-  try {
-    const tg = (window as unknown as {
-      Telegram?: { WebApp?: { HapticFeedback?: { impactOccurred?: (s: string) => void } } };
-    }).Telegram;
-    tg?.WebApp?.HapticFeedback?.impactOccurred?.("light");
-  } catch {
-    /* noop */
-  }
-  try {
-    navigator.vibrate?.(8);
-  } catch {
-    /* noop */
-  }
-}
-
 /**
  * Page transition bookkeeping only. The main content never moves horizontally
  * with the finger; tab gestures live on the bottom navigation bar itself.
