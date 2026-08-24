@@ -143,7 +143,8 @@ export function useSwipeSections(enabled: boolean) {
       const dx = e.changedTouches[0].clientX - startX;
       const dt = Math.max(1, e.timeStamp - startT);
       const velocity = Math.abs(dx) / dt;
-      const threshold = Math.min(96, Math.max(56, node.clientWidth * 0.18));
+      const width = ref.current?.clientWidth ?? 390;
+      const threshold = Math.min(96, Math.max(56, width * 0.18));
       const shouldSwitch = Math.abs(dx) > threshold || (velocity > 0.5 && Math.abs(dx) > 28);
       const next = dx < 0 ? index + 1 : index - 1;
       if (shouldSwitch && next >= 0 && next < navSections.length) {
