@@ -39,7 +39,6 @@ export function AppShell({
   const swipe = useSwipeSections(!hideNav);
   return (
     <div
-      ref={swipe.ref}
       className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background"
     >
 
@@ -131,7 +130,6 @@ export function AppShell({
         {search ? <div className="px-4 pb-3">{search}</div> : null}
       </header>
       <main
-        ref={swipe.setContentRef}
         key={swipe.isSection ? swipe.key : undefined}
         className={cn(
           "flex-1 px-4 pt-4",
