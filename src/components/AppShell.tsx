@@ -131,6 +131,7 @@ export function AppShell({
         {search ? <div className="px-4 pb-3">{search}</div> : null}
       </header>
       <main
+        ref={swipe.setContentRef}
         key={swipe.isSection ? swipe.key : undefined}
         className={cn(
           "flex-1 px-4 pt-4",
