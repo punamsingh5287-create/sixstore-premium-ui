@@ -74,7 +74,7 @@ function ProductScreen() {
                 cartActions.add(product.id, plan.id);
                 toast.success(`${product.name} added to cart`);
               }}
-              className="bounce-press ripple min-h-12 shrink-0 rounded-full border border-border px-5 text-sm font-semibold text-foreground"
+              className="bounce-press ripple min-h-12 shrink-0 rounded-full glass-btn px-5 text-sm font-semibold text-foreground"
             >
               Add to cart
             </button>
@@ -84,7 +84,7 @@ function ProductScreen() {
                 checkoutActions.start(product.id, plan.id, 1);
                 navigate({ to: "/checkout" });
               }}
-              className="bounce-press ripple min-h-12 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
+              className="bounce-press ripple min-h-12 flex-1 rounded-full glass-btn-primary text-sm font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
             >
               {soldOut ? "Sold out" : "Buy now"}
             </button>

@@ -100,7 +100,7 @@ function OrdersScreen() {
                 <Link
                   to="/order/$orderId"
                   params={{ orderId: o.id }}
-                  className="bounce-press ripple flex min-h-10 items-center justify-center gap-1 rounded-full border border-border text-xs font-semibold text-foreground"
+                  className="bounce-press ripple flex min-h-10 items-center justify-center gap-1 rounded-full glass-btn text-xs font-semibold text-foreground"
                 >
                   View details <ChevronRight className="size-3.5" />
                 </Link>

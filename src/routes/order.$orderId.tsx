@@ -199,13 +199,13 @@ function OrderDetailsScreen() {
           <section className="flex flex-col gap-2">
             <button
               onClick={() => toast.success("Receipt download started (demo)")}
-              className="bounce-press ripple flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+              className="bounce-press ripple flex min-h-12 items-center justify-center gap-2 rounded-full glass-btn-primary text-sm font-semibold text-primary-foreground"
             >
               <Download className="size-4" /> Download receipt
             </button>
             <Link
               to="/support"
-              className="bounce-press ripple flex min-h-12 items-center justify-center gap-2 rounded-full border border-border text-sm font-semibold text-foreground"
+              className="bounce-press ripple flex min-h-12 items-center justify-center gap-2 rounded-full glass-btn text-sm font-semibold text-foreground"
             >
               <Headphones className="size-4" /> Contact support
             </Link>

@@ -35,7 +35,7 @@ export function ProductCard({ product }: { product: Product }) {
       to="/product/$productId"
       params={{ productId: product.id }}
       aria-label={`View ${product.name}`}
-      className="tilt lift layer-card press relative flex h-full flex-col gap-2.5 rounded-2xl border border-border p-3"
+      className="tilt lift layer-card press relative flex h-full flex-col gap-2.5 rounded-2xl glass-btn p-3"
     >
       <div className="flex items-start justify-between gap-2">
         <BrandMark product={product} />
@@ -72,7 +72,7 @@ export function ProductRow({ product }: { product: Product }) {
       to="/product/$productId"
       params={{ productId: product.id }}
       aria-label={`View ${product.name}`}
-      className="tilt lift layer-card press relative flex items-center gap-3 rounded-2xl border border-border p-3"
+      className="tilt lift layer-card press relative flex items-center gap-3 rounded-2xl glass-btn p-3"
     >
       <BrandMark product={product} size={44} />
       <div className="min-w-0 flex-1">

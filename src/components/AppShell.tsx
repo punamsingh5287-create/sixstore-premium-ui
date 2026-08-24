@@ -50,7 +50,7 @@ export function AppShell({
               <button
                 type="button"
                 onClick={onBack}
-                className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+                className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full glass-btn text-foreground"
                 aria-label="Go back"
               >
                 <ChevronLeft className="size-5" />
@@ -58,7 +58,7 @@ export function AppShell({
             ) : (
             <Link
               to={backTo ?? "/"}
-              className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+              className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full glass-btn text-foreground"
               aria-label="Go back"
             >
               <ChevronLeft className="size-5" />

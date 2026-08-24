@@ -63,7 +63,7 @@ function WalletScreen() {
             </div>
             <button
               onClick={() => toast.success(`Demo top-up of ${inr(selected)} — no real payment taken`)}
-              className="min-h-12 rounded-full bg-primary text-sm font-semibold text-primary-foreground press"
+              className="min-h-12 rounded-full glass-btn-primary text-sm font-semibold text-primary-foreground press"
             >
               Top up {inr(selected)}
             </button>

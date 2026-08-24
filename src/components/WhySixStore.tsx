@@ -31,7 +31,7 @@ export function WhySixStore() {
         {reasons.map(({ Icon, title, body }) => (
           <div
             key={title}
-            className="press lift layer-card flex flex-col gap-2 rounded-2xl border border-border p-3"
+            className="press lift layer-card flex flex-col gap-2 rounded-2xl glass-btn p-3"
           >
             <span className="grid size-9 place-items-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/20">
               <Icon className="size-4.5" />
