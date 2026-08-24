@@ -38,7 +38,9 @@ export function BottomNav() {
   const [dragPos, setDragPos] = useState<number | null>(null);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const dragging = dragPos !== null;
+  const navHidden = useNavAutoHide(true);
   const draggedRef = useRef(false);
+
   const stateRef = useRef({ startX: 0, startPos: 0, cell: 0, index: 0, active: false });
 
   const cellWidth = () => (listRef.current ? listRef.current.clientWidth / items.length : 0);
