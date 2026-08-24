@@ -103,7 +103,7 @@ function ProductScreen() {
           <section className="reveal relative -mx-4 flex flex-col items-center overflow-hidden px-6 pb-6 pt-4 text-center">
             <span
               aria-hidden="true"
-              className="glow-breathe pointer-events-none absolute left-1/2 top-2 size-64 -translate-x-1/2 rounded-full bg-primary/20 blur-[70px]"
+              className="glow-breathe accent-glow pointer-events-none absolute left-1/2 top-2 size-64 -translate-x-1/2 rounded-full blur-[70px]"
             />
             <span
               aria-hidden="true"
