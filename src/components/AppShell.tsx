@@ -36,8 +36,13 @@ export function AppShell({
 }) {
   const cart = useCart();
   const { count } = cartTotals(cart);
+  const swipe = useSwipeSections(!hideNav);
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background">
+    <div
+      ref={swipe.ref}
+      className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background"
+    >
+
       <header className="safe-top sticky top-0 z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl">
         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 pb-3">
           {back ? (
