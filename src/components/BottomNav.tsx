@@ -39,34 +39,37 @@ export function BottomNav() {
 
   const cellWidth = () => (listRef.current ? listRef.current.clientWidth / items.length : 0);
 
-  const move = useCallback(
-    (clientX: number) => {
-      const s = stateRef.current;
-      if (!s.active) return;
-      const dx = clientX - s.startX;
-      if (Math.abs(dx) > 4) draggedRef.current = true;
-      const max = s.cell * (items.length - 1);
-      const pos = Math.min(max, Math.max(0, s.startPos + dx));
-      setDragPos(pos);
-      const nearest = Math.round(pos / s.cell);
-      if (nearest !== s.index && nearest >= 0 && nearest < items.length) {
-        s.index = nearest;
-        haptic();
-        navigate({ to: navSections[nearest] });
-      }
-    },
-    [navigate],
-  );
+  const move = useCallback((clientX: number) => {
+    const s = stateRef.current;
+    if (!s.active) return;
+    const dx = clientX - s.startX;
+    if (Math.abs(dx) > 4) draggedRef.current = true;
+    const max = s.cell * (items.length - 1);
+    const pos = Math.min(max, Math.max(0, s.startPos + dx));
+    setDragPos(pos);
+    const nearest = Math.round(pos / s.cell);
+    if (nearest !== s.index && nearest >= 0 && nearest < items.length) {
+      s.index = nearest;
+      setDragIndex(nearest);
+      haptic();
+    }
+  }, []);
 
   const endDrag = useCallback(() => {
     const s = stateRef.current;
     if (!s.active) return;
     s.active = false;
+    const target = s.index;
     setDragPos(null);
+    setDragIndex(null);
+    if (target !== activeIndex && target >= 0 && target < items.length) {
+      navigate({ to: navSections[target] });
+    }
     window.setTimeout(() => {
       draggedRef.current = false;
     }, 60);
-  }, []);
+  }, [activeIndex, navigate]);
+
 
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
