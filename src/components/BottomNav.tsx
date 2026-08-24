@@ -47,6 +47,7 @@ export function BottomNav() {
       if (Math.abs(dx) > 4) draggedRef.current = true;
       const max = s.cell * (items.length - 1);
       const pos = Math.min(max, Math.max(0, s.startPos + dx));
+      console.log("MOVE", Math.round(pos), s.index);
       setDragPos(pos);
       const nearest = Math.round(pos / s.cell);
       if (nearest !== s.index && nearest >= 0 && nearest < items.length) {
