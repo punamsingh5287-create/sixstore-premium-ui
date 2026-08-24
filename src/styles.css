@@ -668,3 +668,59 @@
     animation: none;
   }
 }
+
+/* ---- Dynamic multi-color accent glow ---- */
+@property --sx-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.82 0.16 84);
+}
+
+@keyframes sx-accent-cycle {
+  0%,
+  100% {
+    --sx-accent: oklch(0.82 0.16 84); /* yellow / gold */
+  }
+  12.5% {
+    --sx-accent: oklch(0.7 0.16 250); /* blue */
+  }
+  25% {
+    --sx-accent: oklch(0.68 0.19 300); /* purple */
+  }
+  37.5% {
+    --sx-accent: oklch(0.72 0.19 350); /* pink */
+  }
+  50% {
+    --sx-accent: oklch(0.76 0.16 150); /* green */
+  }
+  62.5% {
+    --sx-accent: oklch(0.79 0.13 200); /* cyan */
+  }
+  75% {
+    --sx-accent: oklch(0.75 0.17 55); /* orange */
+  }
+  87.5% {
+    --sx-accent: oklch(0.7 0.17 20); /* warm red */
+  }
+}
+
+:root {
+  --sx-accent: oklch(0.82 0.16 84);
+  animation: sx-accent-cycle 48s linear infinite;
+}
+
+@utility accent-glow {
+  background-color: transparent !important;
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--sx-accent) 40%, transparent),
+    color-mix(in oklab, var(--sx-accent) 14%, transparent) 55%,
+    transparent 75%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    animation: none;
+  }
+}
