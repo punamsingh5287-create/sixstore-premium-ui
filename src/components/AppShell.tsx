@@ -2,7 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { ChevronLeft, Crown, ShoppingBag, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "./BottomNav";
+import { useSwipeSections } from "./useSwipeSections";
 import { cartTotals, inr, useCart } from "@/lib/cart-store";
+
 import { cn } from "@/lib/utils";
 import brandLogo from "@/assets/sixstore-logo.jpg.asset.json";
 export function AppShell({
@@ -34,8 +36,13 @@ export function AppShell({
 }) {
   const cart = useCart();
   const { count } = cartTotals(cart);
+  const swipe = useSwipeSections(!hideNav);
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background">
+    <div
+      ref={swipe.ref}
+      className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background"
+    >
+
       <header className="safe-top sticky top-0 z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl">
         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 pb-3">
           {back ? (
@@ -43,7 +50,7 @@ export function AppShell({
               <button
                 type="button"
                 onClick={onBack}
-                className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+                className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full glass-btn text-foreground"
                 aria-label="Go back"
               >
                 <ChevronLeft className="size-5" />
@@ -51,7 +58,7 @@ export function AppShell({
             ) : (
             <Link
               to={backTo ?? "/"}
-              className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground"
+              className="bounce-press ripple grid size-11 shrink-0 place-items-center rounded-full glass-btn text-foreground"
               aria-label="Go back"
             >
               <ChevronLeft className="size-5" />
@@ -124,8 +131,10 @@ export function AppShell({
         {search ? <div className="px-4 pb-3">{search}</div> : null}
       </header>
       <main
+        key={swipe.isSection ? swipe.key : undefined}
         className={cn(
-          "page-in flex-1 px-4 pt-4",
+          "flex-1 px-4 pt-4",
+          swipe.isSection ? swipe.animationClass : "page-in",
           hideNav ? "pb-10" : "pb-32",
           footer && (hideNav ? "pb-32" : "pb-48"),
         )}
@@ -135,13 +144,14 @@ export function AppShell({
       {footer ? (
         <div
           className={cn(
-            "float-shadow safe-bottom fixed inset-x-0 z-30 mx-auto max-w-[480px] border-y border-border/70 bg-background/92 px-4 py-3 backdrop-blur-xl",
-            hideNav ? "bottom-0" : "bottom-[86px]",
+            "glass-nav safe-bottom fixed inset-x-0 z-30 mx-auto max-w-[480px] px-4 py-3",
+            hideNav ? "bottom-0 rounded-t-[28px]" : "bottom-[86px] rounded-[24px]",
           )}
         >
           {footer}
         </div>
       ) : null}
+
       {hideNav ? null : <BottomNav />}
     </div>
   );

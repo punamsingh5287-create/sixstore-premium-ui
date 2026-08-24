@@ -90,13 +90,13 @@ function SuccessScreen() {
           <Link
             to="/order/$orderId"
             params={{ orderId }}
-            className="bounce-press ripple flex min-h-12 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+            className="bounce-press ripple flex min-h-12 items-center justify-center rounded-full glass-btn-primary text-sm font-semibold text-primary-foreground"
           >
             View order
           </Link>
           <Link
             to="/orders"
-            className="bounce-press ripple flex min-h-12 items-center justify-center rounded-full border border-border text-sm font-semibold text-foreground"
+            className="bounce-press ripple flex min-h-12 items-center justify-center rounded-full glass-btn text-sm font-semibold text-foreground"
           >
             Go to Orders
           </Link>

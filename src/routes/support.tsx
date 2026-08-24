@@ -81,7 +81,7 @@ function SupportScreen() {
                 setMessage("");
                 toast.success("Ticket created — support will reply in chat");
               }}
-              className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground press disabled:opacity-50"
+              className="flex min-h-12 items-center justify-center gap-2 rounded-full glass-btn-primary text-sm font-semibold text-primary-foreground press disabled:opacity-50"
             >
               <Send className="size-4" /> Send message
             </button>
