@@ -136,9 +136,8 @@ export function BottomNav() {
       <ul
         ref={listRef}
         onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
         onPointerUp={endDrag}
-        onPointerCancel={endDrag}
+
         onClickCapture={(e) => {
           if (draggedRef.current) {
             e.preventDefault();
