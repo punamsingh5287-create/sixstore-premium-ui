@@ -114,6 +114,7 @@ export function BottomNav() {
         active: true,
       };
       draggedRef.current = false;
+      console.log("DRAGSTART", x, cell, activeIndex);
       setDragPos(activeIndex * cell);
     },
     [activeIndex],
