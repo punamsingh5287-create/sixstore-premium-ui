@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Home, LayoutGrid, Receipt, User, Wallet } from "lucide-react";
 import { navIndexFor, navSections } from "@/lib/nav-sections";
+import { cn } from "@/lib/utils";
 
 const items = [
   { to: "/", label: "Home", Icon: Home, exact: true },
@@ -33,6 +34,7 @@ export function BottomNav() {
   const activeIndex = navIndexFor(pathname);
   const listRef = useRef<HTMLUListElement | null>(null);
   const [dragPos, setDragPos] = useState<number | null>(null);
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
   const dragging = dragPos !== null;
   const draggedRef = useRef(false);
   const stateRef = useRef({ startX: 0, startPos: 0, cell: 0, index: 0, active: false });
@@ -118,6 +120,7 @@ export function BottomNav() {
       };
       draggedRef.current = false;
       setDragPos(activeIndex * cell);
+      setDragIndex(activeIndex);
     },
     [activeIndex],
   );
@@ -173,15 +176,28 @@ export function BottomNav() {
               to={to}
               activeOptions={{ exact }}
               draggable={false}
-              className="press group flex min-h-[58px] flex-col items-center justify-center gap-0.5 text-muted-foreground data-[status=active]:text-primary"
+              className={cn(
+                "press group flex min-h-[58px] flex-col items-center justify-center gap-0.5 text-muted-foreground data-[status=active]:text-primary",
+                dragIndex !== null && (dragIndex === i ? "text-primary" : "!text-muted-foreground"),
+              )}
             >
               <span className="relative grid h-8 w-12 place-items-center rounded-full">
                 {i === activeIndex && !dragging ? (
                   <span key={pathname} aria-hidden="true" className="nav-pulse absolute inset-0 rounded-full" />
                 ) : null}
-                <Icon className="relative size-[21px] transition-transform duration-200 group-data-[status=active]:-translate-y-px group-data-[status=active]:scale-110" />
+                <Icon
+                  className={cn(
+                    "relative size-[21px] transition-transform duration-200 group-data-[status=active]:-translate-y-px group-data-[status=active]:scale-110",
+                    dragIndex === i && "-translate-y-px scale-110",
+                  )}
+                />
               </span>
-              <span className="text-[11px] font-medium group-data-[status=active]:font-semibold">
+              <span
+                className={cn(
+                  "text-[11px] font-medium group-data-[status=active]:font-semibold",
+                  dragIndex === i && "font-semibold",
+                )}
+              >
                 {label}
               </span>
             </Link>
