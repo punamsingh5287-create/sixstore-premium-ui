@@ -39,34 +39,11 @@ export function BottomNav() {
 
   const cellWidth = () => (listRef.current ? listRef.current.clientWidth / items.length : 0);
 
-  const onPointerDown = useCallback(
-    (e: React.PointerEvent<HTMLUListElement>) => {
-      if (activeIndex < 0 || !listRef.current) return;
-      if (e.pointerType === "mouse" && e.button !== 0) return;
-      const rect = listRef.current.getBoundingClientRect();
-      const cell = rect.width / items.length;
-      const x = e.clientX - rect.left;
-      // Only start dragging from the active tab's own icon/label area.
-      if (x < activeIndex * cell || x > (activeIndex + 1) * cell) return;
-      stateRef.current = {
-        startX: e.clientX,
-        startPos: activeIndex * cell,
-        cell,
-        index: activeIndex,
-        active: true,
-      };
-      draggedRef.current = false;
-      setDragPos(activeIndex * cell);
-      e.currentTarget.setPointerCapture(e.pointerId);
-    },
-    [activeIndex],
-  );
-
-  const onPointerMove = useCallback(
-    (e: React.PointerEvent<HTMLUListElement>) => {
+  const move = useCallback(
+    (clientX: number) => {
       const s = stateRef.current;
       if (!s.active) return;
-      const dx = e.clientX - s.startX;
+      const dx = clientX - s.startX;
       if (Math.abs(dx) > 4) draggedRef.current = true;
       const max = s.cell * (items.length - 1);
       const pos = Math.min(max, Math.max(0, s.startPos + dx));
@@ -90,6 +67,58 @@ export function BottomNav() {
       draggedRef.current = false;
     }, 60);
   }, []);
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      if (!stateRef.current.active) return;
+      move(e.clientX);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!stateRef.current.active) return;
+      e.preventDefault();
+      move(e.touches[0].clientX);
+    };
+    const onUp = () => endDrag();
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+    document.addEventListener("pointerup", onUp);
+    document.addEventListener("pointercancel", onUp);
+    document.addEventListener("touchend", onUp);
+    document.addEventListener("touchcancel", onUp);
+    document.addEventListener("mouseup", onUp);
+    return () => {
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("pointerup", onUp);
+      document.removeEventListener("pointercancel", onUp);
+      document.removeEventListener("touchend", onUp);
+      document.removeEventListener("touchcancel", onUp);
+      document.removeEventListener("mouseup", onUp);
+    };
+  }, [move, endDrag]);
+
+  const onPointerDown = useCallback(
+    (e: React.PointerEvent<HTMLUListElement>) => {
+      if (activeIndex < 0 || !listRef.current) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      const rect = listRef.current.getBoundingClientRect();
+      const cell = rect.width / items.length;
+      const x = e.clientX - rect.left;
+      // Only start dragging from the active tab's own icon/label area.
+      if (x < activeIndex * cell || x > (activeIndex + 1) * cell) return;
+      stateRef.current = {
+        startX: e.clientX,
+        startPos: activeIndex * cell,
+        cell,
+        index: activeIndex,
+        active: true,
+      };
+      draggedRef.current = false;
+      setDragPos(activeIndex * cell);
+    },
+    [activeIndex],
+  );
+
 
   useEffect(() => {
     if (!dragging) return;
