@@ -2,7 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { ChevronLeft, Crown, ShoppingBag, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "./BottomNav";
+import { useSwipeSections } from "./useSwipeSections";
 import { cartTotals, inr, useCart } from "@/lib/cart-store";
+
 import { cn } from "@/lib/utils";
 import brandLogo from "@/assets/sixstore-logo.jpg.asset.json";
 export function AppShell({
