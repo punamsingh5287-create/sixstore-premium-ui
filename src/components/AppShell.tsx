@@ -3,6 +3,8 @@ import { ChevronLeft, Crown, ShoppingBag, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "./BottomNav";
 import { useSwipeSections } from "./useSwipeSections";
+import { useScrollFade } from "./useScrollFade";
+
 import { cartTotals, inr, useCart } from "@/lib/cart-store";
 
 import { cn } from "@/lib/utils";
@@ -37,6 +39,8 @@ export function AppShell({
   const cart = useCart();
   const { count } = cartTotals(cart);
   const swipe = useSwipeSections(!hideNav);
+  const scrolling = useScrollFade();
+
   return (
     <div
       className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background"
