@@ -39,7 +39,7 @@ export function AppShell({
   const cart = useCart();
   const { count } = cartTotals(cart);
   const swipe = useSwipeSections(!hideNav);
-  const scrolling = useScrollFade();
+  const scrolled = useScrollFade();
 
   return (
     <div
@@ -47,6 +47,13 @@ export function AppShell({
     >
 
       <header className="safe-top sticky top-0 z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+        <span
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute inset-x-0 top-full h-16 bg-gradient-to-b from-background via-background/60 to-transparent transition-opacity duration-300 ease-out",
+            scrolled ? "opacity-100" : "opacity-0",
+          )}
+        />
         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 pb-3">
           {back ? (
             onBack ? (
