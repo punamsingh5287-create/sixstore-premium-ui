@@ -140,18 +140,15 @@ export function BottomNav() {
   }, [dragging]);
 
   const indicatorX = dragPos ?? (activeIndex >= 0 ? activeIndex * cellWidth() : 0);
-  const autoHidden = navHidden && !dragging;
 
   return (
     <nav
       className={cn(
         "safe-bottom fixed inset-x-0 bottom-0 z-40 mx-auto max-w-[480px] px-3 pt-2 will-change-transform",
         "transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-        autoHidden
-          ? "pointer-events-none translate-y-[140%] scale-[0.96] opacity-0"
-          : "translate-y-0 scale-100 opacity-100",
       )}
     >
+
 
       <ul
         ref={listRef}
