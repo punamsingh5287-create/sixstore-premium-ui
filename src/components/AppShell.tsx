@@ -142,25 +142,8 @@ export function AppShell({
       </header>
       <main
         key={swipe.isSection ? swipe.key : undefined}
-        style={
-          scrolling
-            ? {
-                opacity: 0.62,
-                transform: "scale(0.982) translateY(3px)",
-                filter: "blur(2.5px) saturate(0.92)",
-                transition:
-                  "opacity 220ms cubic-bezier(0.32,0.72,0,1), transform 220ms cubic-bezier(0.32,0.72,0,1), filter 220ms cubic-bezier(0.32,0.72,0,1)",
-              }
-            : {
-                opacity: 1,
-                transform: "scale(1) translateY(0)",
-                filter: "blur(0px) saturate(1)",
-                transition:
-                  "opacity 520ms cubic-bezier(0.16,1,0.3,1), transform 520ms cubic-bezier(0.16,1,0.3,1), filter 520ms cubic-bezier(0.16,1,0.3,1)",
-              }
-        }
         className={cn(
-          "flex-1 px-4 pt-4 will-change-[opacity,transform,filter]",
+          "flex-1 px-4 pt-4",
           swipe.isSection ? swipe.animationClass : "page-in",
           hideNav ? "pb-10" : "pb-32",
           footer && (hideNav ? "pb-32" : "pb-48"),
