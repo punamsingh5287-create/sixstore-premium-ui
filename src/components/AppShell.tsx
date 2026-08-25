@@ -3,6 +3,8 @@ import { ChevronLeft, Crown, ShoppingBag, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "./BottomNav";
 import { useSwipeSections } from "./useSwipeSections";
+import { useScrollFade } from "./useScrollFade";
+
 import { cartTotals, inr, useCart } from "@/lib/cart-store";
 
 import { cn } from "@/lib/utils";
@@ -37,6 +39,8 @@ export function AppShell({
   const cart = useCart();
   const { count } = cartTotals(cart);
   const swipe = useSwipeSections(!hideNav);
+  const scrolling = useScrollFade();
+
   return (
     <div
       className="mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background"
@@ -131,13 +135,19 @@ export function AppShell({
       </header>
       <main
         key={swipe.isSection ? swipe.key : undefined}
+        style={{
+          opacity: scrolling ? 0.82 : 1,
+          transform: scrolling ? "scale(0.994)" : "scale(1)",
+          transition: "opacity 320ms cubic-bezier(0.32,0.72,0,1), transform 320ms cubic-bezier(0.32,0.72,0,1)",
+        }}
         className={cn(
-          "flex-1 px-4 pt-4",
+          "flex-1 px-4 pt-4 will-change-[opacity,transform]",
           swipe.isSection ? swipe.animationClass : "page-in",
           hideNav ? "pb-10" : "pb-32",
           footer && (hideNav ? "pb-32" : "pb-48"),
         )}
       >
+
         {children}
       </main>
       {footer ? (
