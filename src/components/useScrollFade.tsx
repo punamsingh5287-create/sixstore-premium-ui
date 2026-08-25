@@ -1,49 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
- * Premium iOS-style content fade: while the user scrolls, the whole page
- * content softly fades/recedes (with a light blur); when scrolling settles
- * it eases back to full clarity. Nav buttons are never hidden.
- * Small accidental scroll jitters are ignored via a movement threshold.
+ * Returns true once the page is scrolled past a small threshold.
+ * Used to reveal the premium top-edge fade: content scrolling up
+ * softly disappears under the header instead of being cut off hard.
  */
-export function useScrollFade(enabled = true) {
-  const [scrolling, setScrolling] = useState(false);
-  const timer = useRef<number | null>(null);
+export function useScrollFade(threshold = 10) {
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (!enabled) {
-      setScrolling(false);
-      return;
-    }
     let raf = 0;
-    let lastY = window.scrollY;
-
-    const settle = () => {
-      if (timer.current) window.clearTimeout(timer.current);
-      timer.current = window.setTimeout(() => setScrolling(false), 240);
-    };
-
     const onScroll = () => {
-      const y = window.scrollY;
-      const moved = Math.abs(y - lastY) > 6;
-      lastY = y;
-      if (!moved) return;
-      if (!raf) {
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          setScrolling(true);
-        });
-      }
-      settle();
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        setScrolled(window.scrollY > threshold);
+      });
     };
-
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
-      if (timer.current) window.clearTimeout(timer.current);
     };
-  }, [enabled]);
+  }, [threshold]);
 
-  return scrolling;
+  return scrolled;
 }
